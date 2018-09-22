@@ -26,6 +26,14 @@ app.use(cors({
 
 app.use(bodyParser.json({ type: 'application/json' }));
 
+/*connection.connect(() => {
+  connection.query("DELETE FROM movies WHERE id=7947", (error, result, fields) => {
+    if (error) throw error;
+    //console.log(result);
+    //console.log(result.id);
+    console.log("Number of records deleted: " + result.affectedRows);
+  });});*/
+
 app.route('/movies')
   .get((req, res) => {
 
