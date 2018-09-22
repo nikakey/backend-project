@@ -97,7 +97,7 @@ app.route('/movies')
         connection.connect(() => {
           connection.query(queryInsertNewMovie, values, (error, resInsert, fields) => {
             if (error) throw error;
-            console.log(resInsert.insertId);
+            //console.log(resInsert.insertId);
             connection.query(queryGetMovieById, [resInsert.insertId], (error, resSelect, fields) => {
               if (error) throw error;
               res.send(resSelect);
@@ -107,4 +107,4 @@ app.route('/movies')
       }
     });
 
-app.listen(port, () => console.log(`Listening to port ${port}`));
+app.listen(port /*, () => console.log(`Listening to port ${port}`)*/);
