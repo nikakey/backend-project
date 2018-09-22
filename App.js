@@ -2,6 +2,7 @@ const express = require ('express');
 const cors = require ('cors');
 const mysql = require ('mysql');
 const { body, validationResult } = require('express-validator/check');
+const bodyParser = require ('body-parser');
 
 const app = express();
 const port = 5000;
