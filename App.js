@@ -14,6 +14,7 @@ const connection = mysql.createConnection({
 
 const queryAllMovies = "SELECT * FROM movies";
 const queryMoviesByYears = "SELECT * FROM movies WHERE year BETWEEN ? AND ?";
+const queryMoviesByTitle = "SELECT * FROM movies WHERE title LIKE ?";
 
 app.use(cors({
   origin: 'http://localhost:3000'
@@ -28,6 +29,10 @@ app.route('/movies')
     if (req.query.start && req.query.end) {
       query = queryMoviesByYears;
       reqParam = [req.query.start, req.query.end];
+    }
+    else if (req.query.search) {
+      query = queryMoviesByTitle;
+      reqParam = ['%' + req.query.search + '%'];
     }
     else {
       query = queryAllMovies;
