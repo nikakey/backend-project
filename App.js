@@ -12,14 +12,29 @@ const connection = mysql.createConnection({
   database: 'itghiringdb'
 })
 
+const queryAllMovies = "SELECT * FROM movies";
+const queryMoviesByYears = "SELECT * FROM movies WHERE year BETWEEN ? AND ?";
+
 app.use(cors({
   origin: 'http://localhost:3000'
 }));
 
 app.route('/movies')
   .get((req, res) => {
+
+    let query = "";
+    let reqParam = [];
+
+    if (req.query.start && req.query.end) {
+      query = queryMoviesByYears;
+      reqParam = [req.query.start, req.query.end];
+    }
+    else {
+      query = queryAllMovies;
+    }
+
     connection.connect(() => {
-      connection.query("SELECT * FROM movies", (error, result, fields) => {
+      connection.query(query, reqParam, (error, result, fields) => {
         if (error) throw error;
         res.send(result);
       });
