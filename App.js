@@ -16,6 +16,14 @@ app.use(cors({
   origin: 'http://localhost:3000'
 }));
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.route('/movies')
+  .get((req, res) => {
+    connection.connect(() => {
+      connection.query("SELECT * FROM movies", (error, result, fields) => {
+        if (error) throw error;
+        res.send(result);
+      });
+    });
+  });
 
 app.listen(port, () => console.log(`Listening to port ${port}`));
