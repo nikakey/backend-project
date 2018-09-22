@@ -73,8 +73,24 @@ app.route('/movies')
       .isEmpty()
       .trim()
       .escape()
-    ], (req, res) => {
+    ], 
+    (req, res) => {
+      const errors = validationResult(req);
       
-  });
+      if (!errors.isEmpty()) {
+        return res.json({errors: errors.array()});
+      }
+      else {
+        let values = [req.body.title, req.body.year, req.body.director, "", "", req.body.genre];
+
+        connection.connect(() => {
+          connection.query(queryInsertNewMovie, values, (error, resInsert, fields) => {
+            if (error) throw error;
+            console.log(resInsert);
+          });
+        });
+      }
+
+    });
 
 app.listen(port, () => console.log(`Listening to port ${port}`));
