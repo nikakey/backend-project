@@ -24,6 +24,8 @@ app.use(cors({
   origin: 'http://localhost:3000'
 }));
 
+app.use(bodyParser.json({ type: 'application/json' }));
+
 app.route('/movies')
   .get((req, res) => {
 
@@ -87,7 +89,7 @@ app.route('/movies')
         connection.connect(() => {
           connection.query(queryInsertNewMovie, values, (error, resInsert, fields) => {
             if (error) throw error;
-            console.log(resInsert);
+            console.log('Inserted' + resInsert);
           });
         });
       }
