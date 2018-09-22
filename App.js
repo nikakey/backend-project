@@ -1,6 +1,7 @@
 const express = require ('express');
 const cors = require ('cors');
 const mysql = require ('mysql');
+const { body,validationResult } = require('express-validator/check');
 
 const app = express();
 const port = 5000;
@@ -15,6 +16,8 @@ const connection = mysql.createConnection({
 const queryAllMovies = "SELECT * FROM movies";
 const queryMoviesByYears = "SELECT * FROM movies WHERE year BETWEEN ? AND ?";
 const queryMoviesByTitle = "SELECT * FROM movies WHERE title LIKE ?";
+const queryInsertNewMovie = "INSERT INTO movies (title, year, director, cast, notes, genre) VALUES (?,?,?,?,?,?)";
+const queryGetMovieById = "SELECT * FROM movies WHERE id = ?";
 
 app.use(cors({
   origin: 'http://localhost:3000'
@@ -44,6 +47,11 @@ app.route('/movies')
         res.send(result);
       });
     });
+  })
+  .post([
+      
+    ], (req, res) => {
+
   });
 
 app.listen(port, () => console.log(`Listening to port ${port}`));
