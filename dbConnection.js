@@ -1,6 +1,6 @@
 const mysql = require ('mysql');
 
-const exports = module.exports = {};
+var exports = module.exports = {};
 
 //DB Connection Set Up
 const connection = mysql.createConnection({
