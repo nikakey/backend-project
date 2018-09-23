@@ -2,6 +2,7 @@ const mysql = require ('mysql');
 
 var exports = module.exports = {};
 
+//DB Connection Set Up
 const connection = mysql.createConnection({
   host: 'itgbackendhiring.mysql.database.azure.com',
   user: 'backendhire@itgbackendhiring',
@@ -9,15 +10,16 @@ const connection = mysql.createConnection({
   database: 'itghiringdb'
 })
 
+//SQL Queries Set
 const queryAllMovies = "SELECT * FROM movies";
 const queryMoviesByYears = "SELECT * FROM movies WHERE year BETWEEN ? AND ?";
 const queryMoviesByTitle = "SELECT * FROM movies WHERE title LIKE ?";
 const queryInsertNewMovie = "INSERT INTO movies (title, year, director, cast, notes, genre) VALUES (?,?,?,?,?,?)";
 const queryGetMovieById = "SELECT * FROM movies WHERE id = ?";
 
-const getSelectQuery = (reqParam) => {
 
-  
+//Return Select Query for given Set of Request Parametres
+const getSelectQuery = (reqParam) => {
   let result = {
     query: "",
     values: []
@@ -38,9 +40,9 @@ const getSelectQuery = (reqParam) => {
   return result;
 }
 
-exports.getMovies = (getRequest, callback) => {
-  
-  const res = getSelectQuery(getRequest.query);
+//Return Array of Movies (using filters by year, title)
+exports.getMovies = (reqParam, callback) => {
+  const res = getSelectQuery(reqParam);
 
   connection.connect(() => {
     connection.query(res.query, res.values, (error, result, fields) => {
@@ -50,6 +52,7 @@ exports.getMovies = (getRequest, callback) => {
   });
 }
 
+//Create New Movie in the DB and Return the Created Movie
 exports.createMovie = (movie, callback) => {
 
   const values = [movie.title, movie.year, movie.director, "", "", movie.genre];
@@ -64,4 +67,3 @@ exports.createMovie = (movie, callback) => {
     });
   });
 }
-

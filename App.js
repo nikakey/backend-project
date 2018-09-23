@@ -16,7 +16,7 @@ app.use(bodyParser.json({ type: 'application/json' }));
 
 app.route('/movies')
   .get((req, res) => {
-    dbConnection.getMovies(req, (result)=>{res.send(result)});
+    dbConnection.getMovies(req.query, (result)=>{res.send(result)});
     
   })
   .post([
