@@ -54,7 +54,6 @@ exports.getMovies = (reqParam, callback) => {
 
 //Create New Movie in the DB and Return the Created Movie
 exports.createMovie = (movie, callback) => {
-
   const values = [movie.title, movie.year, movie.director, "", "", movie.genre];
 
   connection.connect(() => {
