@@ -23,7 +23,6 @@ app.route('/movies')
     body('title')
       .isLength({ min: 1 }).trim()
       .withMessage('Title should not be empty!')
-      .trim()
       .escape(),
     body('year')
       .isLength({ min: 4, max: 4 })
