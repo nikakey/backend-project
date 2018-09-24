@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "/Users/veronika/Desktop/backend-project/.git"
+    "url": "git+https://github.com/nikakey/backend-project.git"
   },
   "author": "Veronica K",
   "license": "ISC",
